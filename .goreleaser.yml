@@ -20,7 +20,7 @@ release:
 
 brews:
   - name: snacam
-    description: ""
+    description: "Convert Strings to Specified Case"
     tap:
       owner: kohbis
       name: homebrew-snacam
