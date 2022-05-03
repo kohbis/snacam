@@ -1,0 +1,34 @@
+project_name: snacam
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+      - GO111MODULE=on
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      386: i386
+      amd64: x86_64
+
+checksum:
+  name_template: 'checksums.txt'
+
+release:
+  prerelease: auto
+
+brews:
+  - name: snacam
+    description: "Convert Strings to Specified Case"
+    tap:
+      owner: kohbis
+      name: homebrew-snacam
+    folder: Formula
+    homepage: "https://github.com/kohbis/snacam"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    install: |
+      bin.install "snacam"
+
