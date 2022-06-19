@@ -16,11 +16,12 @@ const (
 
 // CamelCaseType : Type of camelcase
 type CamelCaseType int
+
 const (
 	// UCC : Upper CamelCase
 	UCC CamelCaseType = iota
 	// LCC : Lower CamelCase
-	LCC CamelCaseType = iota
+	LCC
 )
 
 func main() {
