@@ -6,8 +6,8 @@ import (
 
 func Test_buildWords(t *testing.T) {
 	type args struct {
-		words      []string
-		capitalize bool
+		words  []string
+		ccType CamelCaseType
 	}
 	tests := []struct {
 		name string
@@ -15,33 +15,41 @@ func Test_buildWords(t *testing.T) {
 		want []string
 	}{
 		{
-			name: "return correct words if capitalize flag is false",
+			name: "return correct words if ccType is None",
 			args: args{
 				[]string{"Abc", "dEf", "ghI"},
-				false,
+				NONE,
 			},
 			want: []string{"abc", "d", "ef", "gh", "i"},
 		},
 		{
-			name: "return correct words if capitalize flag is true",
+			name: "return correct words if ccType is Upper",
 			args: args{
 				[]string{"Abc", "dEf", "ghI"},
-				true,
+				UCC,
+			},
+			want: []string{"Abc", "D", "Ef", "Gh", "I"},
+		},
+		{
+			name: "return correct words if ccType is Lower",
+			args: args{
+				[]string{"Abc", "dEf", "ghI"},
+				LCC,
 			},
 			want: []string{"abc", "D", "Ef", "Gh", "I"},
 		},
 		{
-			name: "return snake if words include non alphabets",
+			name: "return correct words if words include non alphabets",
 			args: args{
 				[]string{"ab=c", "de_f", "gh-i"},
-				false,
+				NONE,
 			},
 			want: []string{"ab", "c", "de", "f", "gh", "i"},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := buildWords(tt.args.words, tt.args.capitalize)
+			got := buildWords(tt.args.words, tt.args.ccType)
 
 			if len(got) != len(tt.want) {
 				t.Errorf("buildWords() = %v, want = %v", got, tt.want)
