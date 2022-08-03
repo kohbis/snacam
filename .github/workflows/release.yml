@@ -15,6 +15,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.18
+      - name: Format
+        run: if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then exit 1; fi
       - name: Test
         run: go test -v ./...
       - name: Run GoReleaser
