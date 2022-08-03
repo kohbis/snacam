@@ -53,8 +53,7 @@ func main() {
 		fmt.Println(strings.Join(words, ""))
 	default:
 		fmt.Println(unexpectedSubcommand)
-			// test fmt
-			os.Exit(1)
+		os.Exit(1)
 	}
 }
 
