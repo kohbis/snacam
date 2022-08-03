@@ -10,24 +10,27 @@ import (
 )
 
 const (
-	// unexpectedSubcommand : subcommand is neighter 'snake' nor 'camel'
-	unexpectedSubcommand = "expected 'snake' or 'camel' subcommand"
+	// unexpectedSubcommand : subcommand is none of 'snake', 'camel' and 'pascal'
+	unexpectedSubcommand = "expected 'snake', 'camel(lowercamel)' or 'pascal(uppercamel)' subcommand"
 )
 
 // CamelCaseType : Type of camelcase
 type CamelCaseType int
 
 const (
+	// NONE : Not CamelCase
+	NONE CamelCaseType = iota
 	// UCC : Upper CamelCase
-	UCC CamelCaseType = iota
+	UCC
 	// LCC : Lower CamelCase
 	LCC
 )
 
 func main() {
 	var (
-		snakeCmd = flag.NewFlagSet("snake", flag.ExitOnError)
-		camelCmd = flag.NewFlagSet("camel", flag.ExitOnError)
+		snakeCmd  = flag.NewFlagSet("snake", flag.ExitOnError)
+		camelCmd  = flag.NewFlagSet("camel", flag.ExitOnError)
+		pascalCmd = flag.NewFlagSet("pascal", flag.ExitOnError)
 	)
 
 	if len(os.Args) < 2 {
@@ -38,11 +41,15 @@ func main() {
 	switch os.Args[1] {
 	case "snake":
 		snakeCmd.Parse(os.Args[2:])
-		words := buildWords(snakeCmd.Args(), false)
+		words := buildWords(snakeCmd.Args(), NONE)
 		fmt.Println(strings.Join(words, "_"))
-	case "camel":
+	case "camel", "lowercamel":
 		camelCmd.Parse(os.Args[2:])
-		words := buildWords(camelCmd.Args(), true)
+		words := buildWords(camelCmd.Args(), LCC)
+		fmt.Println(strings.Join(words, ""))
+	case "pascal", "uppercamel":
+		pascalCmd.Parse(os.Args[2:])
+		words := buildWords(pascalCmd.Args(), UCC)
 		fmt.Println(strings.Join(words, ""))
 	default:
 		fmt.Println(unexpectedSubcommand)
@@ -50,7 +57,7 @@ func main() {
 	}
 }
 
-func buildWords(args []string, capitalize bool) []string {
+func buildWords(args []string, ccType CamelCaseType) []string {
 	words := []string{}
 
 	for _, arg := range args {
@@ -60,13 +67,14 @@ func buildWords(args []string, capitalize bool) []string {
 		}
 	}
 
-	if capitalize {
-		return capitalizeWords(words, LCC)
+	if ccType == NONE {
+		return words
 	}
-	return words
+	return capitalizeWords(words, ccType)
 }
 
 func capitalizeWords(words []string, ccType CamelCaseType) []string {
+	fmt.Println(words)
 	for i, word := range words {
 		if i == 0 && ccType == LCC {
 			continue
