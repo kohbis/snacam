@@ -17,5 +17,8 @@ convert_to_snake_case
 
 $ snacam camel convert to camelCase
 convertToCamelCase
+
+$ snacam pascal convert to pascalCase
+ConvertToPascalCase
 ```
 
