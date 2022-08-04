@@ -74,7 +74,6 @@ func buildWords(args []string, ccType CamelCaseType) []string {
 }
 
 func capitalizeWords(words []string, ccType CamelCaseType) []string {
-	fmt.Println(words)
 	for i, word := range words {
 		if i == 0 && ccType == LCC {
 			continue
