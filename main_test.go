@@ -39,6 +39,14 @@ func Test_buildWords(t *testing.T) {
 			want: []string{"abc", "D", "Ef", "Gh", "I"},
 		},
 		{
+			name: "return correct words if ccType is Lower and includes non alphabets",
+			args: args{
+				[]string{"Abc=def_gh-I"},
+				LCC,
+			},
+			want: []string{"abc", "Def", "Gh", "I"},
+		},
+		{
 			name: "return correct words if words include non alphabets",
 			args: args{
 				[]string{"ab=c", "de_f", "gh-i"},
