@@ -9,6 +9,8 @@ import (
 	"unicode"
 )
 
+const version = "v0.1.1"
+
 const (
 	// unexpectedSubcommand : subcommand is none of 'snake', 'camel' and 'pascal'
 	unexpectedSubcommand = "expected 'snake', 'camel(lowercamel)' or 'pascal(uppercamel)' subcommand"
@@ -39,6 +41,8 @@ func main() {
 	}
 
 	switch os.Args[1] {
+	case "version":
+		fmt.Println(version)
 	case "snake":
 		snakeCmd.Parse(os.Args[2:])
 		words := buildWords(snakeCmd.Args(), NONE)
