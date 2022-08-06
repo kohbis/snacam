@@ -12,8 +12,22 @@ import (
 const version = "v0.1.1"
 
 const (
-	// unexpectedSubcommand : subcommand is none of 'snake', 'camel' and 'pascal'
-	unexpectedSubcommand = "expected 'snake', 'camel(lowercamel)' or 'pascal(uppercamel)' subcommand"
+	unknownCommand = `Unknown command
+Run 'snacam help' for usage.
+`
+	usage = `Convert Strings to Specified Case
+
+Usage:
+
+	snacam <commad> [arguments]
+
+The commands are:
+
+	snake                convert to snake_case
+	camel,  lowercamel   convert to lowerCamelCase
+	pascal, uppercamel   convert to UpperCamelCase
+
+`
 )
 
 // CamelCaseType : Type of camelcase
@@ -36,13 +50,15 @@ func main() {
 	)
 
 	if len(os.Args) < 2 {
-		fmt.Println(unexpectedSubcommand)
-		os.Exit(1)
+		fmt.Print(usage)
+		return
 	}
 
 	switch os.Args[1] {
 	case "version":
 		fmt.Println(version)
+	case "help":
+		fmt.Print(usage)
 	case "snake":
 		snakeCmd.Parse(os.Args[2:])
 		words := buildWords(snakeCmd.Args(), NONE)
@@ -56,8 +72,7 @@ func main() {
 		words := buildWords(pascalCmd.Args(), UCC)
 		fmt.Println(strings.Join(words, ""))
 	default:
-		fmt.Println(unexpectedSubcommand)
-		os.Exit(1)
+		fmt.Print(unknownCommand)
 	}
 }
 
