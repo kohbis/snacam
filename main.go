@@ -19,7 +19,7 @@ Run 'snacam help' for usage.
 
 Usage:
 
-	snacam <commad> [arguments]
+	snacam <command> [arguments]
 
 The commands are:
 
