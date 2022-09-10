@@ -12,13 +12,13 @@ $ brew install kohbis/snacam/snacam
 ## Usage
 
 ```bash
-$ snacam snake convert to snakeCase
+$ snacam snake convert to snake_case
 convert_to_snake_case
 
 $ snacam camel convert to camelCase
 convertToCamelCase
 
-$ snacam pascal convert to pascalCase
+$ snacam pascal convert to PascalCase
 ConvertToPascalCase
 ```
 
